@@ -5,12 +5,20 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #121212;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.02) 2px, transparent 2px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 2px, transparent 2px),
-                      linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-color: #1A0000; /* Very dark red base for neon contrast */
+    background-image: url('images/image.jpg'); /* Path to your image */
+    background-size: cover; /* Scale image to cover the entire background */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+}
+/* Web version background for screens larger than 600px */
+@media (min-width: 601px) {
+    body {
+        background-image: url('images/webimage.jpg'); /* Web background */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 }
 
 .container {
