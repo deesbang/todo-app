@@ -3,22 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamlev List</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Hamlev list</h1>
+        <h1>To-Do List</h1>
         <div class="input-section">
             <input type="text" id="task-input" placeholder="Enter a task">
             <button id="add-task-btn">Add Task</button>
         </div>
-        <ul id="task-list"></ul>
         <div class="navigation">
             <a href="pending.html" class="view-completed">View Pending</a>
             <a href="completed.html" class="view-completed">View Completed</a>
+            <a href="chat.html" class="back-link">Open Chat</a>
+        </div>
+        <ul id="task-list"></ul>
+        <div id="completed-tasks-modal" class="modal">
+            <div class="modal-content">
+                <h2>Completed Tasks</h2>
+                <ul id="completed-task-list"></ul>
+                <button id="close-nickname-btn">Close</button>
+            </div>
+        </div>
+        <!-- Barcode Scanning Elements -->
+        <button id="scanBarcodeBtn">Scan Barcode</button>
+        <div id="barcodePrompt" class="modal">
+            <div class="modal-content">
+                <h2>Scan Barcode</h2>
+                <p>Scan using a device or paste the code:</p>
+                <a href="#" id="scanLink">Scan with Device</a>
+                <button id="browserScanBtn">Scan with Browser</button>
+                <button id="closePromptBtn">Close</button>
+            </div>
         </div>
     </div>
-    <script src="scripts/script.js"></script>
+    <div id="nickname-modal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Nickname</h2>
+            <input type="text" id="nickname-input" placeholder="Enter your nickname">
+            <button id="submit-nickname-btn">Join Chat</button>
+            <button id="close-nickname-btn">Cancel</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

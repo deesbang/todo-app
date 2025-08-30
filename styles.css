@@ -5,30 +5,37 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #1A0000; /* Very dark red base for neon contrast */
-    background-image: url('images/image.jpg'); /* Path to your image */
-    background-size: cover; /* Scale image to cover the entire background */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
+    background-color: #791212;
+    background-image: url('images/background-mobile.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-/* Web version background for screens larger than 600px */
+
 @media (min-width: 601px) {
     body {
-        background-image: url('images/webimage.jpg'); /* Web background */
+        background-image: url('images/background-web.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
 }
 
-.container {
-    background: #1C2526;
+.container, .chat-container {
+    background: transparent;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 300px;
     text-align: center;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 40px);
+    justify-content: space-between;
+    max-width: 600px;
 }
 
 h1 {
@@ -100,14 +107,14 @@ li {
     background-color: #01579B;
 }
 
-.view-completed {
+.view-completed, .back-link {
     display: inline-block;
     margin: 10px 5px;
     color: #4FC3F7;
     text-decoration: none;
 }
 
-.view-completed:hover {
+.view-completed:hover, .back-link:hover {
     text-decoration: underline;
 }
 
@@ -119,6 +126,230 @@ li {
 .navigation {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #1C2526;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+}
+
+.modal-content h2 {
+    color: #E0E0E0;
+    margin: 0 0 20px;
+}
+
+.modal-content input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+}
+
+#submit-nickname-btn {
+    background-color: #25D366;
+}
+
+#submit-nickname-btn:hover {
+    background-color: #20B058;
+}
+
+#close-nickname-btn {
+    background-color: #D32F2F;
+    margin-top: 10px;
+}
+
+#close-nickname-btn:hover {
+    background-color: #B71C1C;
+}
+
+.chat-messages {
+    flex: 1;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+    color: #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Force messages to start from bottom */
+}
+
+.chat-messages .message-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content; /* Limit width to content */
+}
+
+.chat-messages .timestamp {
+    font-size: 12px; /* Smaller than message text */
+    color: #B0C4DE; /* Match username color */
+    margin-bottom: 2px; /* Space before username */
+    background: transparent !important; /* Force transparent background */
+    align-self: flex-end; /* Align with bubble */
+    padding: 0px; /* No padding as per your modification */
+    position: sticky; /* Ensure it’s not affected by bubble */
+    z-index: 1; /* Above bubble if needed */
+}
+
+.chat-messages .message-bubble {
+    display: flex;
+    flex-direction: column; /* Stack username above message */
+    background-color: rgba(52, 73, 94, 0.7); /* Glossy transparent blue */
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+    width: auto; /* Dynamic width based on content */
+    word-wrap: break-word; /* Wrap long messages */
+    backdrop-filter: blur(5px); /* Glossy effect */
+    box-sizing: border-box; /* Include padding in width */
+    position: relative; /* For absolute positioning if needed */
+    font-size: 16px; /* Message text */
+    border: none; /* Remove any border */
+    outline: none; /* Remove outline on focus */
+    box-shadow: none; /* Remove any shadow causing border effect */
+}
+
+.chat-messages .message-bubble .username {
+    font-size: 10px !important; /* Enforce smaller font size */
+    color: #B0C4DE; /* Bluish to distinguish */
+    margin-bottom: 2px; /* Space before message */
+    align-self: flex-end; /* Aligned to the right within bubble */
+    opacity: 0.9; /* Slightly softer */
+}
+
+.chat-messages .left {
+    margin-left: 0; /* Flush to left */
+    margin-right: auto; /* Push to left edge */
+    text-align: left; /* Align left for other users */
+}
+
+.chat-messages .right {
+    margin-left: auto; /* Push to right edge */
+    margin-right: 0; /* Flush to right */
+    text-align: right; /* Align right for current user */
+}
+
+.chat-messages .message-bubble.left {
+    background-color: rgba(52, 73, 94, 0.7); /* Other users */
+}
+
+.chat-messages .message-bubble.right {
+    background-color: rgba(46, 204, 113, 0.7); /* Your messages */
+}
+
+.chat-input-bubble {
+    display: flex;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(42, 47, 48, 0.7); /* Transparent glossy input bubble */
+    border-radius: 10px;
+    margin: 0 auto; /* Center the bubble */
+    max-width: 90%; /* Prevent shifting right */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow for gloss */
+    backdrop-filter: blur(5px); /* Glossy effect */
+    align-items: center; /* Vertically center input and button */
+}
+
+#message-input {
+    flex: 1;
+    border: none; /* Remove border */
+    background: transparent; /* Remove background */
+    color: #E0E0E0; /* Ensure text is visible against bubble background */
+    padding: 0; /* Remove extra padding */
+    outline: none; /* Remove focus outline */
+}
+
+#message-input::placeholder {
+    color: #888; /* Keep placeholder visible */
+    background: transparent; /* Ensure placeholder has no background */
+}
+
+#message-input:focus {
+    border: none; /* Remove focus border */
+    outline: none; /* Remove focus outline */
+    box-shadow: none; /* Remove focus shadow */
+}
+
+#send-message-btn {
+    background-color: rgba(37, 211, 102, 0.7); /* Glossy green */
+    border: none;
+    padding: 5px 10px;
+    margin-left: auto; /* Move to the right side of the input */
+    border-radius: 10px; /* Match bubble radius */
+    backdrop-filter: blur(5px); /* Glossy effect */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+#send-message-btn:hover {
+    background-color: rgba(32, 176, 88, 0.7); /* Darker glossy green */
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Space below input bubble */
+}
+
+#back-to-todo-btn {
+    width: 30%; /* Match your requested width */
+    padding: 8px;
+    background-color: rgba(2, 136, 209, 0.7); /* Glossy blue */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Match bubble radius */
+    cursor: pointer;
+    text-align: center; /* Center text within button */
+    backdrop-filter: blur(5px); /* Glossy effect */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+#back-to-todo-btn:hover {
+    background-color: rgba(1, 87, 155, 0.7); /* Darker glossy blue */
+}
+
+#clear-chat-btn {
+    width: 20%; /* Match your modification */
+    padding: 8px;
+    background-color: rgba(211, 47, 47, 0.7); /* Glossy red */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Match bubble radius */
+    cursor: pointer;
+    text-align: center; /* Center text within button */
+    backdrop-filter: blur(5px); /* Glossy effect */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+#clear-chat-btn:hover {
+    background-color: rgba(183, 28, 28, 0.7); /* Darker glossy red */
+}
+
+#scanBarcodeBtn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #0288D1;
+}
+
+#scanBarcodeBtn:hover {
+    background-color: #01579B;
 }
 
 @media (max-width: 600px) {
@@ -126,7 +357,7 @@ li {
         align-items: flex-start;
     }
 
-    .container {
+    .container, .chat-container {
         margin: 20px;
         margin-top: 0;
         max-width: 100%;
@@ -135,7 +366,7 @@ li {
     .input-section {
         flex-direction: column;
         margin-left: -10px;
-        margin-right: 5px;
+        margin-right: -10px;
     }
 
     input, button {
@@ -153,7 +384,55 @@ li {
         align-items: center;
     }
 
-    .view-completed {
+    .view-completed, .back-link {
         margin: 5px 0;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .chat-messages {
+        max-height: calc(100vh - 250px);
+    }
+
+    .chat-input-bubble {
+        flex-direction: row; /* Keep horizontal on mobile */
+        justify-content: space-between; /* Space input and button */
+        width: 100%; /* Full width to avoid shifting */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    #message-input {
+        flex: 1;
+        margin-right: 10px; /* Add spacing before button */
+        border: none; /* Remove border */
+        background: transparent; /* Remove background */
+        color: #E0E0E0; /* Ensure text is visible */
+        outline: none; /* Remove focus outline */
+    }
+
+    #message-input::placeholder {
+        color: #888; /* Keep placeholder visible */
+        background: transparent; /* Ensure placeholder has no background */
+    }
+
+    #message-input:focus {
+        border: none; /* Remove focus border */
+        outline: none; /* Remove focus outline */
+        box-shadow: none; /* Remove focus shadow */
+    }
+
+    #send-message-btn {
+        margin-left: 0; /* Reset margin for mobile */
+        width: auto; /* Ensure button fits */
+        background-color: rgba(37, 211, 102, 0.7); /* Glossy green */
+        border-radius: 10px; /* Match bubble radius */
+        backdrop-filter: blur(5px); /* Glossy effect */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    }
+
+    #send-message-btn:hover {
+        background-color: rgba(32, 176, 88, 0.7); /* Darker glossy green */
     }
 }
