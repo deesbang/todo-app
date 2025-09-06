@@ -4,22 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
-    <script type="module" src="firebase-config.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="chat.js" defer></script>
 </head>
 <body>
     <div class="chat-container">
         <h1>Chat</h1>
-        <div class="chat-messages" id="chat-messages"></div>
+        <div id="chat-messages" class="chat-messages"></div>
         <div class="chat-input-bubble">
             <input type="text" id="message-input" placeholder="Type a message...">
             <button id="send-message-btn">Send</button>
         </div>
         <div class="button-container">
-            <button id="back-to-todo-btn" class="back-link">Back to To-Do List</button>
+            <button id="back-to-todo-btn">Back to To-Do List</button>
             <button id="clear-chat-btn">Clear Chat</button>
+            <button id="change-nickname-btn">Change Nickname</button>
         </div>
     </div>
-    <script type="module" src="chat.js"></script>
+
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Password</h2>
+            <input type="password" id="password-input" placeholder="Enter password">
+            <button id="submit-password-btn">Submit</button>
+            <button id="close-password-btn">Cancel</button>
+        </div>
+    </div>
 </body>
 </html>
